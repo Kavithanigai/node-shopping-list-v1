@@ -2,7 +2,7 @@
 const express = require('express');
 // we'll use morgan to log the HTTP layer
 const morgan = require('morgan');
-// we'll use body-parser's json() method to 
+// we'll use body-parser's json() method to
 // parse JSON data sent in requests to this app
 const bodyParser = require('body-parser');
 
@@ -17,7 +17,7 @@ const app = express();
 app.use(morgan('common'));
 
 // we're going to add some items to ShoppingList
-// so there's some data to look at. Note that 
+// so there's some data to look at. Note that
 // normally you wouldn't do this. Usually your
 // server will simply expose the state of the
 // underlying database.
@@ -30,6 +30,15 @@ ShoppingList.create('peppers', 4);
 app.get('/shopping-list', (req, res) => {
   res.json(ShoppingList.get());
 });
+
+Recipes.create('chocolate milk', ['cocoa', 'milk', 'sugar']);
+Recipes.create('Almond chocolate milk', ['cocoa', 'AlmondMilk', 'sugar']);
+Recipes.create('Toffee almond chocolate milk', ['cocoa', 'Almondmilk', 'sugar','toffee']);
+
+app.get('/recipes', (req, res) => {
+  res.json(Recipes.get());
+});
+
 
 app.listen(process.env.PORT || 8080, () => {
   console.log(`Your app is listening on port ${process.env.PORT || 8080}`);
